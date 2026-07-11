@@ -12,12 +12,13 @@ body {
 .card {
   position: relative;
   z-index: 2;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2rem 2.4rem;
-  border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.97);
+  padding: 3rem 3.5rem;
+  border-radius: 24px;
+  box-shadow: 0 24px 58px rgba(0, 0, 0, 0.14);
   text-align: center;
-  max-width: 420px;
+  max-width: 640px;
+  min-width: 360px;
 }
 
 h1 {
@@ -31,14 +32,22 @@ p {
 }
 
 button {
-  padding: 0.8rem 1.4rem;
+  padding: 1.2rem 2rem;
   border: none;
   border-radius: 999px;
-  background: #2e7d32;
+  background: #d32f2f;
   color: white;
   cursor: pointer;
-  font-size: 1rem;
-  transition: transform 0.2s ease, background 0.2s ease;
+  font-size: 1.2rem;
+  font-weight: 700;
+  box-shadow: 0 12px 24px rgba(211, 47, 47, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+button.red-text {
+  color: #b71c1c;
+  background: #ffebee;
+  border: 1px solid #d32f2f;
 }
 
 button:hover {
@@ -55,37 +64,134 @@ button:hover {
 
 .rocket {
   position: fixed;
-  left: -140px;
-  top: 8vh;
-  font-size: 4.2rem;
+  font-size: 5rem;
   pointer-events: none;
   opacity: 0;
-  transform: rotate(35deg);
   z-index: 1;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.28));
+}
+
+#rocketContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.rocket.dynamic {
+  position: absolute;
+  font-size: 3.8rem;
+  opacity: 0;
+  animation: rocketBurst 1.4s ease-out forwards;
+}
+
+@keyframes rocketBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(var(--r, 0deg)) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--r, 0deg)) scale(1.15);
+  }
+}
+
+.rocket-tl {
+  left: -90px;
+  top: 8vh;
+  transform: rotate(40deg);
+}
+
+.rocket-tr {
+  right: -90px;
+  top: 10vh;
+  transform: rotate(140deg);
+}
+
+.rocket-bl {
+  left: -90px;
+  bottom: 16vh;
+  transform: rotate(-15deg);
+}
+
+.rocket-br {
+  right: -90px;
+  bottom: 12vh;
+  transform: rotate(-75deg);
 }
 
 .rocket.fly {
-  animation: rocketFly 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 1;
 }
 
-@keyframes rocketFly {
+.rocket.fly.rocket-tl {
+  animation: rocketFlyTL 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.rocket.fly.rocket-tr {
+  animation: rocketFlyTR 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.rocket.fly.rocket-bl {
+  animation: rocketFlyBL 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.rocket.fly.rocket-br {
+  animation: rocketFlyBR 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes rocketFlyTL {
   0% {
+    transform: translate(0, 0) rotate(40deg) scale(0.95);
     opacity: 0;
-    transform: translate(-10vw, 0) rotate(35deg) scale(0.7);
   }
   15% {
     opacity: 1;
   }
-  45% {
-    transform: translate(35vw, 22vh) rotate(20deg) scale(1);
+  100% {
+    transform: translate(120vw, 78vh) rotate(40deg) scale(1.05);
+    opacity: 0;
   }
-  75% {
+}
+
+@keyframes rocketFlyTR {
+  0% {
+    transform: translate(0, 0) rotate(140deg) scale(0.95);
+    opacity: 0;
+  }
+  15% {
     opacity: 1;
-    transform: translate(72vw, 48vh) rotate(8deg) scale(1.05);
   }
   100% {
+    transform: translate(-120vw, 72vh) rotate(140deg) scale(1.05);
     opacity: 0;
-    transform: translate(118vw, 84vh) rotate(-4deg) scale(1.15);
+  }
+}
+
+@keyframes rocketFlyBL {
+  0% {
+    transform: translate(0, 0) rotate(-15deg) scale(0.95);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(120vw, -64vh) rotate(-15deg) scale(1.05);
+    opacity: 0;
+  }
+}
+
+@keyframes rocketFlyBR {
+  0% {
+    transform: translate(0, 0) rotate(-75deg) scale(0.95);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-120vw, -54vh) rotate(-75deg) scale(1.05);
+    opacity: 0;
   }
 }
